@@ -27,7 +27,8 @@ def load():
     print('')
 
     listHandler(mPaths, path)
-
+    
+#Initialize
 def listHandler(mPaths, path):
     # Time of the last check (as UNIX timestamp)
     lastCheck = time.time()
@@ -49,14 +50,8 @@ def listHandler(mPaths, path):
     print("Info: Press Ctrl+C to stop the monitor")
     print('')
 
+# Loop that sends one folder to monitor. Goes through all folders that were given as parameters.
     while (True):
-        # Load files
-        #print("Going through directory... (%s)" % mPath)
-        
-        #print("Current directory state loaded (%s items)" % len(currentFiles))
-        #print('')
-        #msg = time.strftime("%c") + " - Monitoring %s" % path
-        #print(msg)
         folders[:] = monitor(folders, mPaths, lastCheck)[:]
         lastCheck = time.time()
         time.sleep(1)
@@ -86,21 +81,23 @@ def monitor(folders, mPaths, lastCheck):
     lastCheck = time.time()        
     folders[:] = newFiles[:]
     return folders
-    
+
+# File removed message    
 def removedMsg(f):
     msg = time.strftime("%c") + " - REMOVED " + os.path.basename(f) + " FROM " + os.path.dirname(f)
     print(msg)
     with open('folderMonitor_events.txt', 'a', encoding='utf-8') as fl:
         fl.write(msg+"\n")
         fl.close()
-        
+#File added message        
 def addedMsg(f):
     msg = time.strftime("%c") + " - ADDED " + os.path.basename(f) + " TO " + os.path.dirname(f)
     print(msg)
     with open('folderMonitor_events.txt', 'a', encoding='utf-8') as fl:
         fl.write(msg+"\n")
         fl.close()
-
+        
+# Check if file has been edited
 def checkEdited(f, lastCheck):
     try:
         if int(lastCheck) < os.path.getmtime(f) and os.path.isfile(f):
@@ -113,7 +110,8 @@ def checkEdited(f, lastCheck):
     except Exception as e:
         #print(e) 
         pass
-    
+
+# Check if file has been accessed
 def checkAccessed(f, lastCheck):
     try:
         if int(lastCheck) < os.path.getatime(f) and os.path.isfile(f):
