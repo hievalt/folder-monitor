@@ -6,5 +6,5 @@ Usage from command-line:
 "python folderMonitor.py I F"
 
 I = monitor interval as seconds. Interval is optional.
-F = path of folder to be monitored. Multiple folder paths will be separated with space (" ").
+F = path of folder to be monitored. Multiple folder paths should be separated with space (" ").
 
