@@ -73,10 +73,10 @@ def monitor(folders, mPaths, lastCheck):
             elif f in folders:
                 removedMsg(f)
 
-    # Check if files have been edited or accessed
+    # Check if files have been edited (or accessed)
     for f in newFiles:
         checkEdited(f, lastCheck)
-        checkAccessed(f, lastCheck)
+        # checkAccessed(f, lastCheck) 
         
     lastCheck = time.time()        
     folders[:] = newFiles[:]
@@ -111,7 +111,7 @@ def checkEdited(f, lastCheck):
         #print(e) 
         pass
 
-# Check if file has been accessed
+# Check if file has been accessed (NOT USED)
 def checkAccessed(f, lastCheck):
     try:
         if int(lastCheck) < os.path.getatime(f) and os.path.isfile(f):
