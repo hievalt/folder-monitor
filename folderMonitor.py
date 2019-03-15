@@ -12,6 +12,9 @@ def load():
                 path = str(arg + "\**").replace("\\\\", "\\")
                 mPaths.append(str(path + "\**").replace("\\\\", "\\"))
                 lastFolder = str(os.path.basename(os.path.normpath(path)) + "\\").replace("\\\\", "\\")
+                print("\nFolder Monitor is loading...")
+                print('')
+                listHandler(mPaths, path)
     # Linux
     elif os.name == "posix":
         for arg in sys.argv:
@@ -19,14 +22,12 @@ def load():
                 path = arg
                 mPaths.append(str(path + "/**").replace("//", "/"))
                 lastFolder = str(os.path.basename(os.path.normpath(path)) + "/").replace("//", "/")
+                print("\nFolder Monitor is loading...")
+                print('')
+                listHandler(mPaths, path)
     else:
         print("Current operating system is not supported.")
         exit()
-    
-    print("\nFolder Monitor is loading...")
-    print('')
-
-    listHandler(mPaths, path)
     
 #Initialize
 def listHandler(mPaths, path):
